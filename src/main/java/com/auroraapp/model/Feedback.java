@@ -1,5 +1,5 @@
 package com.auroraapp.model;
 
-abstract class Usuario {
+public class Feedback {
     
 }

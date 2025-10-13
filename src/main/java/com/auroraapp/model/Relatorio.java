@@ -1,4 +1,4 @@
-package main.java.com.auroraapp.model;
+package com.auroraapp.model;
 
 public class Relatorio {
     

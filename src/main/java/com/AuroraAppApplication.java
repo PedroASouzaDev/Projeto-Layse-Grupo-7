@@ -1,7 +1,10 @@
-package main.java.com;
+package com;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class AuroraAppApplication {
     public static void main(String [] args) {
-        //Missing
+        SpringApplication.run(AuroraAppApplication.class, args);
     }
 }
