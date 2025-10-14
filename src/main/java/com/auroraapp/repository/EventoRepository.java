@@ -1,9 +1,11 @@
 package com.auroraapp.repository;
 
+import java.sql.SQLException;
+
 import com.auroraapp.model.Evento;
 
 interface EventoRepository {
-    public void salvar(Evento evento);
+    public void salvar(Evento evento) throws SQLException;
     public Evento buscarPorId(int id);
-    void deletar(Evento evento);
+    public void deletar(Evento evento);
 }
