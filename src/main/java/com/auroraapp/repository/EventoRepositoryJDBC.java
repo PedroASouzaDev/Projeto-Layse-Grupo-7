@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Statement;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,58 +24,73 @@ public class EventoRepositoryJDBC implements EventoRepository {
 
     private final DataSource dataSource;
 
-    public void salvar(Evento evento) throws SQLException {
-        String sql = "INSERT INTO evento (nome, dataInicio, dataFim, valorIngresso) VALUES (?, ?, ?, ?)";
-        try (Connection conn = dataSource.getConnection()) {
-            conn.setAutoCommit(false);
+    private void inserirRelacionamentos(Connection conn, String sql, int eventoId, List<Integer> ids) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Integer idRelacionado : ids) {
+                ps.setInt(1, eventoId);
+                ps.setInt(2, idRelacionado);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        }
+    }
 
-            try(PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+    public void salvar(Evento evento) throws SQLException {
+        String sqlEvento = "INSERT INTO evento (nome, dataInicio, dataFim, valorIngresso) VALUES (?, ?, ?, ?)";
+        
+        try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false); 
+            
+            try (PreparedStatement ps = conn.prepareStatement(sqlEvento, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, evento.getNome());
                 ps.setDate(2, java.sql.Date.valueOf(evento.getDataInicio()));
                 ps.setDate(3, java.sql.Date.valueOf(evento.getDataFim()));
                 ps.setDouble(4, evento.getValorIngresso());
                 ps.executeUpdate();
-
+                
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
                     int eventoId = rs.getInt(1);
                     evento.setId(eventoId);
-
-                    String sqlParticipantes = "INSERT INTO evento_usuario (evento_id, usuario_id) VALUES (?, ?)";
-                    try (PreparedStatement psParticipantes = conn.prepareStatement(sqlParticipantes)) {
-                        for (Usuario usuario : evento.getParticipantes()) {
-                            psParticipantes.setInt(1, evento.getId());
-                            psParticipantes.setInt(2, usuario.getId());
-                            psParticipantes.addBatch();
-                        }
-                        psParticipantes.executeBatch();
+                    
+                    if (evento.getParticipantes() != null && !evento.getParticipantes().isEmpty()) {
+                        inserirRelacionamentos(
+                            conn,
+                            "INSERT INTO evento_usuario (evento_id, usuario_id) VALUES (?, ?)",
+                            eventoId,
+                            evento.getParticipantes().stream().map(Usuario::getId).toList()
+                        );
                     }
 
-                    String sqlOrganizadores = "INSERT INTO evento_organizador (evento_id, organizador_id) VALUES (?, ?)";
-                    try (PreparedStatement psOrganizadores = conn.prepareStatement(sqlOrganizadores)) {
-                        for(Organizador organizador : evento.getOrganizadores()) {
-                            psOrganizadores.setInt(1, evento.getId());
-                            psOrganizadores.setInt(2, organizador.getId());
-                            psOrganizadores.addBatch();
-                        }
-                        psOrganizadores.executeBatch();
+                    if (evento.getOrganizadores() != null && !evento.getOrganizadores().isEmpty()) {
+                        inserirRelacionamentos(
+                            conn,
+                            "INSERT INTO evento_organizador (evento_id, organizador_id) VALUES (?, ?)",
+                            eventoId,
+                            evento.getOrganizadores().stream().map(Organizador::getId).toList()
+                        );
                     }
 
-                    String sqlCategoria = "INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (?, ?)";
-                    try (PreparedStatement psCategoria = conn.prepareStatement(sqlCategoria)) {
-                        for(Categoria categoria : evento.getCategorias()) {
-                            psCategoria.setInt(1, evento.getId());
-                            psCategoria.setInt(2, categoria.getId());
-                            psCategoria.addBatch();
-                        }
-                        psCategoria.executeBatch();
+                    if (evento.getCategorias() != null && !evento.getCategorias().isEmpty()) {
+                        inserirRelacionamentos(
+                            conn,
+                            "INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (?, ?)",
+                            eventoId,
+                            evento.getCategorias().stream().map(Categoria::getId).toList()
+                        );
                     }
                 }
                 conn.commit();
+
             } catch (SQLException e) {
-                conn.rollback();
+                if (conn != null && !conn.isClosed()) {
+                    conn.rollback();
+                }
                 throw e;
             }
         }
     }
+
+    public Evento buscarPorId(int id) {};
+    public void deletar(Evento evento) {}
 }

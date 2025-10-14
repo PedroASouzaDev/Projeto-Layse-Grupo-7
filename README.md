@@ -1,4 +1,4 @@
-# Avaiação de Layse
+# Avaliação de Layse
 Projeto de Layse - Unidade 2 - Módulo de Relatórios e Estatísticas
 
 Frameworks e bibliotecas usadas:
