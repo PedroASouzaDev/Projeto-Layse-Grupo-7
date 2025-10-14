@@ -1,9 +1,7 @@
 package com.auroraapp.model;
 
-import com.auroraapp.enums.Categoria;
-
 import java.util.LinkedList;
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,11 +11,12 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class Evento {
+    private int id;
     private String nome;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
+    private Double valorIngresso;
     private LinkedList<Usuario> participantes;
     private LinkedList<Organizador> organizadores;
-    private Date dataInicio;
-    private Date dataFim;
     private LinkedList<Categoria> categorias;
-    private Double valorIngresso;  
 }
