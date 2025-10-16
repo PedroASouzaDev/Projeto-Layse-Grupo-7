@@ -9,6 +9,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
 @Builder
-public class Aluno extends Usuario {
-    private String matricula;
+public class Participante extends Usuario {
 }

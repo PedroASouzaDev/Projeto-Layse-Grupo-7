@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -91,6 +92,38 @@ public class EventoRepositoryJDBC implements EventoRepository {
         }
     }
 
-    public Evento buscarPorId(int id) {};
-    public void deletar(Evento evento) {}
+    //MISSING: Ao deletar esse id escolher entre dois designs - deletar os registros das tabelas entidade-associativa N:N em cascata ou manualmente (O que traz a necessidade de alterar eesse método)
+    public void deletar(Evento evento) throws SQLException {
+        String sql = "DELETE FROM evento WHERE id = ?";
+        try(Connection conn = dataSource.getConnection()) {
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, evento.getId());
+                ps.executeUpdate();
+
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Evento buscarPorId(int id) throws SQLException {
+        String sql = "SELECT * FROM evento WHERE id = ?";
+        try(Connection conn = dataSource.getConnection()) {
+            try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+
+                Evento evento = new Evento();
+                evento.setId(rs.getInt("id"));
+                evento.setNome(rs.getString("nome"));
+                evento.setDataInicio(rs.getDate("dataInicio").toLocalDate());
+                evento.setDataInicio(rs.getDate("dataFim").toLocalDate());
+                //MISSING: Aqui o objeto ainda não tem sua lista populada, discussão: carregar tudo de uma vez ou dependendo de onde vc está na interface
+                return evento;
+
+            } catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 }

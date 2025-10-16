@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import com.auroraapp.model.Evento;
 
 interface EventoRepository {
+
+    //MISSING: Atualizar e Atualizar Parcialmente (Pensando nas requisições)
     public void salvar(Evento evento) throws SQLException;
-    public Evento buscarPorId(int id);
-    public void deletar(Evento evento);
+    public void deletar(Evento evento) throws SQLException;
+    public Evento buscarPorId(int id) throws SQLException;
 }
