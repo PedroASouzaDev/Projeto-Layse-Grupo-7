@@ -2,7 +2,10 @@ package com.auroraapp.controller;
 
 import org.springframework.stereotype.Controller;
 
-@Controller
-public class EventoController {
+import lombok.RequiredArgsConstructor;
 
+@Controller
+@RequiredArgsConstructor
+public class EventoController {
+    
 }
