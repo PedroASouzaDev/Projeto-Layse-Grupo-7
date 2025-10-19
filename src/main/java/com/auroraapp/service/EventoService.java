@@ -16,5 +16,13 @@ public class EventoService {
 
     public void deletar(Evento evento) {}
 
-    public Evento buscarPorId(int id) {}
+    // ONLY FOR TESTING ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    public Evento buscarPorId(int id) {
+        try {
+            return eventoRepository.buscarPorId(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

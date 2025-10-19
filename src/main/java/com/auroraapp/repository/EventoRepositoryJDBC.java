@@ -124,5 +124,6 @@ public class EventoRepositoryJDBC implements EventoRepository {
                 e.printStackTrace();
             }
         }
-    };
+        return null;
+    }
 }
