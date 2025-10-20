@@ -3,14 +3,14 @@ package com.auroraapp.service;
 import org.springframework.stereotype.Service;
 
 import com.auroraapp.model.Evento;
-import com.auroraapp.repository.EventoRepositoryJDBC;
+import com.auroraapp.repository.EventoRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class EventoService {
-    private final EventoRepositoryJDBC eventoRepository;
+    private final EventoRepository eventoRepository;
 
     public void salvar(Evento evento) {}
 
