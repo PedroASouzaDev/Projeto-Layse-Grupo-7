@@ -13,5 +13,4 @@ import lombok.EqualsAndHashCode;
 @Builder
 public class Participante extends Usuario {
     private LinkedList<Evento> eventosPartcipados;
-    private String matricula;
 }
