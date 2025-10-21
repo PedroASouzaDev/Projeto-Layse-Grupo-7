@@ -31,4 +31,8 @@ public class OrganizadorRepositoryJDBC implements OrganizadorRepository{
             return null;
         }
     }
+
+    public void atualizarNome(int id, String nome) throws SQLException {
+        
+    }
 }

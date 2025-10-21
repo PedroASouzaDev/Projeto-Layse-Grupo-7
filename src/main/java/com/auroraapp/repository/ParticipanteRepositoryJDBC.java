@@ -30,4 +30,8 @@ public class ParticipanteRepositoryJDBC implements ParticipanteRepository{
             return null;
         }
     }
+
+    public void atualizarNome(int id, String nome) throws SQLException {
+        
+    }
 }
