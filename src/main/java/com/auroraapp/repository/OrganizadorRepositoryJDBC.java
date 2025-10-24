@@ -22,14 +22,8 @@ public class OrganizadorRepositoryJDBC implements OrganizadorRepository{
 
     }
 
-    public Organizador buscarPorId(int id) throws SQLException {
-        try {
-            
-            return null;
-        } catch (Exception e) {
-            
-            return null;
-        }
+    public Organizador buscarPorId(int id) {
+        return null;
     }
 
     public void atualizarNome(int id, String nome) throws SQLException {
