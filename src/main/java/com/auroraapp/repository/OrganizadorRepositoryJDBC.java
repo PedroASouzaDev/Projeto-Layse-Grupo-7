@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrganizadorRepositoryJDBC implements OrganizadorRepository{
     
-    
     public void salvar(Usuario usuario) throws SQLException {
         
     }

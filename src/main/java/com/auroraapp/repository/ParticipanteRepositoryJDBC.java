@@ -21,14 +21,8 @@ public class ParticipanteRepositoryJDBC implements ParticipanteRepository{
 
     }
 
-    public Participante buscarPorId(int id) throws SQLException {
-        try {
-            
-            return null;
-        } catch (Exception e) {
-            
-            return null;
-        }
+    public Participante buscarPorId(int id) {
+        return null;
     }
 
     public void atualizarNome(int id, String nome) throws SQLException {
