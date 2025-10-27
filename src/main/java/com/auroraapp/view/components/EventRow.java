@@ -12,9 +12,28 @@ public class EventRow extends HBox {
         setSpacing(12);
         setStyle(
             "-fx-background-color: white; " +
-            "-fx-background-radius: 3; " +
-            "-fx-border-radius: 3;"
+            "-fx-background-radius: 8px; " +      
+            "-fx-border-radius: 8px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 5, 0, 0, 0); " + 
+            "-fx-cursor: hand;" 
         );
+
+        setOnMouseEntered(e -> setStyle(
+            "-fx-background-color: white; " +
+            "-fx-background-radius: 8px; " +
+            "-fx-border-radius: 8px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 4), 15, 0, 0, 0);" +
+            "-fx-cursor: hand;" 
+        ));
+
+        setOnMouseExited(e -> setStyle(
+            "-fx-background-color: white; " +
+            "-fx-background-radius: 8px; " +
+            "-fx-border-radius: 8px; " +
+            "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 5, 0, 0, 0);" +
+            "-fx-cursor: hand;" 
+        ));
+
 
         Label title = new Label(evento.getNome());
         title.setStyle("-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: black;");

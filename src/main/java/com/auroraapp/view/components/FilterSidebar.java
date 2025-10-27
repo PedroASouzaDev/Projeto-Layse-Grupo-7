@@ -14,7 +14,7 @@ public class FilterSidebar extends VBox {
     public FilterSidebar() {
         setPadding(new Insets(12));
         setSpacing(12);
-        setStyle("-fx-background-color: #efefef;");
+        setStyle("-fx-background-color: #e2e8f0;");
         setPrefWidth(180);
 
         Label header = new Label("Filtros");

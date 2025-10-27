@@ -14,7 +14,7 @@ public class AuroraAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(AuroraAppApplication.class, args);
 
-        // Launch JavaFX GUI on JavaFX Application Thread
+        // Thread do JavaFX
         new Thread(() -> Application.launch(JavaFXApp.class)).start();
     }
 

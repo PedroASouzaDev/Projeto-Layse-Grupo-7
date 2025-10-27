@@ -12,10 +12,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -32,10 +37,38 @@ public class HomeView extends BorderPane {
 
         // Conteudo Central (Pesquisa e Lista)
         VBox center = new VBox();
+        center.setBackground(new Background(
+            new BackgroundFill(Color.web("#e2e8f0"), CornerRadii.EMPTY, Insets.EMPTY)
+        ));
         center.setPadding(new Insets(14));
         center.setSpacing(8);
 
         SearchHeader search = new SearchHeader();
+        Button criarEventobotao = new Button("Criar Evento");
+        criarEventobotao.setStyle(
+            "-fx-background-color: #3b82f6; " +
+            "-fx-text-fill: white; " +          
+            "-fx-background-radius: 24px; " +    
+            "-fx-padding: 8px 32px; " +          
+            "-fx-font-weight: bold;"
+        );
+
+        
+        criarEventobotao.setOnMouseEntered(e -> criarEventobotao.setStyle(
+            "-fx-background-color: #2563eb; " + 
+            "-fx-text-fill: white; " +
+            "-fx-background-radius: 24px; " +
+            "-fx-padding: 8px 32px; " +
+            "-fx-font-weight: bold;"
+        ));
+        
+        criarEventobotao.setOnMouseExited(e -> criarEventobotao.setStyle(
+            "-fx-background-color: #3b82f6; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-radius: 24px; " +
+            "-fx-padding: 8px 32px; " +
+            "-fx-font-weight: bold;"
+        ));
         ContentList content = new ContentList();
 
         ObservableList<Evento> eventos = FXCollections.observableArrayList();
@@ -126,10 +159,10 @@ public class HomeView extends BorderPane {
         sidebar.getSelectedCategoryNames().addListener((javafx.collections.ListChangeListener<String>) c -> updatePredicate.run());
 
         VBox.setVgrow(content, Priority.ALWAYS);
-        center.getChildren().addAll(search, content);
+        center.getChildren().addAll(search, criarEventobotao, content);
 
         HBox centerWrapper = new HBox(center);
-        centerWrapper.setStyle("-fx-background-color: #efefef; -fx-padding: 18;");
+        centerWrapper.setStyle("-fx-padding: 18;");
         setCenter(centerWrapper);
 
         setMargin(centerWrapper, new Insets(0, 20, 0, 20));

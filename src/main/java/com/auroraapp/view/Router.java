@@ -30,7 +30,6 @@ public class Router {
         root.getChildren().setAll(node);
     }
 
-    // helper to load FXML from same package or resource path
     public static Supplier<Node> fromFxml(String resourcePath) {
         return () -> {
             try {
