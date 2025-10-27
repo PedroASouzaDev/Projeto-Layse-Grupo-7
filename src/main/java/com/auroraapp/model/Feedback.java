@@ -2,6 +2,7 @@ package com.auroraapp.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -25,8 +26,10 @@ public class Feedback {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "evento_id")
     private Evento evento;
 
     @ManyToOne
+    @JoinColumn(name = "participante_id")
     private Participante participante;
 }
