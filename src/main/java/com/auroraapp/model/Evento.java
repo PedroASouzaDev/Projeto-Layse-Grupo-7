@@ -31,12 +31,12 @@ public class Evento {
     private LocalDate dataFim;
     private Double valorIngresso;
 
-    @ManyToMany(mappedBy = "evento_participante")
+    @ManyToMany(mappedBy = "evento")
     private LinkedList<Usuario> participantes;
 
-    @ManyToMany(mappedBy = "evento_organizador")
+    @ManyToMany(mappedBy = "evento")
     private LinkedList<Organizador> organizadores;
 
-    @ManyToMany(mappedBy = "evento_categoria")
+    @ManyToMany(mappedBy = "evento")
     private LinkedList<Categoria> categorias;
 }
