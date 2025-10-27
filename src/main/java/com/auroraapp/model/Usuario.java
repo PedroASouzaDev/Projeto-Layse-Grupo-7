@@ -1,9 +1,13 @@
 package com.auroraapp.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
 
+@Entity
 @Data
 public abstract class Usuario {
-    private int id;
+    @Id
+    private Long id;
     private String nome;
 }
