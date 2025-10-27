@@ -1,11 +1,14 @@
 package com.auroraapp.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-public abstract class Usuario {
+@AllArgsConstructor
+@SuperBuilder
+public class Usuario {
     private int id;
-    private String email;
-    private String senha;
     private String nome;
 }
