@@ -1,11 +1,26 @@
 package com.auroraapp.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Entity
+@Table(name = "categorias")
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Categoria {
-    private final int id;
-    private final String nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+
+    @ManyToMany(mappedBy = "categorias")
+    private List<Evento> eventos; 
 }

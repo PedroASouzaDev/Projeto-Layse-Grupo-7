@@ -11,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @Builder
 public class Relatorio {
-
     private Evento evento;
 
 // Método para exibir as informações do relatório no console

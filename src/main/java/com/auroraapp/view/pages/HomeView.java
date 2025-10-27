@@ -102,106 +102,11 @@ import com.auroraapp.view.Router;
             ContentList content = new ContentList();
 
             ObservableList<Evento> eventos = FXCollections.observableArrayList();
-
             // Eventos de exemplo (Futura integração com a API)
-            eventos.add(new Evento(
-                1,
-                "Feira de Tecnologia",
-                LocalDate.of(2025, 11, 10),
-                LocalDate.of(2025, 11, 12),
-                50.0,
-                new LinkedList<>(),
-                new LinkedList<>(),
-                new LinkedList<>()
-            ));
-
-            eventos.add(new Evento(
-                2,
-                "Concerto ao Ar Livre",
-                LocalDate.of(2025, 12, 5),
-                LocalDate.of(2025, 12, 5),
-                120.0,
-                new LinkedList<>(),
-                new LinkedList<>(),
-                new LinkedList<>()
-            ));
             
-            
-            LinkedList<Categoria> categoras = new LinkedList<>();
-            categoras.add(new Categoria(0, "Fotografia"));
-
-            LinkedList<Usuario> pessoas = new LinkedList<>();
-            Participante teste = Participante
-                .builder()
-                .id(1)
-                .nome("fd")
-                .eventosPartcipados(new LinkedList<>())
-                .build();
-            pessoas.add(teste);
-
-            eventos.add(new Evento(
-                3,
-                "Workshop de Fotografia",
-                LocalDate.of(2026, 1, 15),
-                LocalDate.of(2026, 1, 16),
-                80.0,
-                pessoas,
-                new LinkedList<>(),
-                categoras
-            ));
-
-            eventos.add(new Evento(
-                3,
-                "Workshop de Fotografia",
-                LocalDate.of(2026, 1, 15),
-                LocalDate.of(2026, 1, 16),
-                80.0,
-                new LinkedList<>(),
-                new LinkedList<>(),
-                categoras
-            ));
-
-            eventos.add(new Evento(
-                3,
-                "Workshop de Fotografia",
-                LocalDate.of(2026, 1, 15),
-                LocalDate.of(2026, 1, 16),
-                80.0,
-                new LinkedList<>(),
-                new LinkedList<>(),
-                categoras
-            ));
-
-            eventos.add(new Evento(
-                3,
-                "Workshop de Fotografia",
-                LocalDate.of(2026, 1, 15),
-                LocalDate.of(2026, 1, 16),
-                80.0,
-                new LinkedList<>(),
-                new LinkedList<>(),
-                categoras
-            ));
-
-            eventos.add(new Evento(
-                3,
-                "Workshop de Fotografia",
-                LocalDate.of(2026, 1, 15),
-                LocalDate.of(2026, 1, 16),
-                80.0,
-                new LinkedList<>(),
-                new LinkedList<>(),
-                categoras
-            ));
             ObservableList<String> categorias = FXCollections.observableArrayList();
-
             // Categorias de exemplo (Futura integração com a API)
-            categorias.add("TODAS");
-            categorias.add("Musica");
-            categorias.add("Fotografia");
-            categorias.add("Carros");
-            categorias.add("Educação");
-            categorias.add("ASDLKJHSALK");
+
 
             if (!categorias.isEmpty()) {
                 sidebar.setCategoryNames(categorias);

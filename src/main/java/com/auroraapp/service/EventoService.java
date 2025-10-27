@@ -1,28 +1,28 @@
 package com.auroraapp.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.auroraapp.model.Evento;
-import com.auroraapp.repository.EventoRepositoryJDBC;
+import com.auroraapp.repository.EventoRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class EventoService {
-    private final EventoRepositoryJDBC eventoRepository;
+    private final EventoRepository eventoRepository;
 
-    public void salvar(Evento evento) {}
+    public Evento salvar(Evento evento) {
+        return eventoRepository.save(evento);
+    }
 
-    public void deletar(Evento evento) {}
+    public void deletar(Long id) {
+        eventoRepository.deleteById(id);
+    }
 
-    // ONLY FOR TESTING ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-    public Evento buscarPorId(int id) {
-        try {
-            return eventoRepository.buscarPorId(id);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public Optional<Evento> buscarPorId(Long id) {
+        return eventoRepository.findById(id);
     }
 }
