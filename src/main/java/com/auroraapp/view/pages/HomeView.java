@@ -7,11 +7,13 @@ import com.auroraapp.view.components.ContentList;
 import com.auroraapp.view.components.FilterSidebar;
 import com.auroraapp.view.components.HeaderBar;
 import com.auroraapp.view.components.SearchHeader;
+import com.auroraapp.view.components.EventoForm;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -21,6 +23,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -44,6 +49,7 @@ public class HomeView extends BorderPane {
         center.setSpacing(8);
 
         SearchHeader search = new SearchHeader();
+
         Button criarEventobotao = new Button("Criar Evento");
         criarEventobotao.setStyle(
             "-fx-background-color: #3b82f6; " +
@@ -52,8 +58,6 @@ public class HomeView extends BorderPane {
             "-fx-padding: 8px 32px; " +          
             "-fx-font-weight: bold;"
         );
-
-        
         criarEventobotao.setOnMouseEntered(e -> criarEventobotao.setStyle(
             "-fx-background-color: #2563eb; " + 
             "-fx-text-fill: white; " +
@@ -61,7 +65,6 @@ public class HomeView extends BorderPane {
             "-fx-padding: 8px 32px; " +
             "-fx-font-weight: bold;"
         ));
-        
         criarEventobotao.setOnMouseExited(e -> criarEventobotao.setStyle(
             "-fx-background-color: #3b82f6; " +
             "-fx-text-fill: white; " +
@@ -69,6 +72,23 @@ public class HomeView extends BorderPane {
             "-fx-padding: 8px 32px; " +
             "-fx-font-weight: bold;"
         ));
+
+        // Open modal with EventoForm when clicked
+        criarEventobotao.setOnAction(evt -> {
+            EventoForm form = new EventoForm();
+            Scene dialogScene = new Scene(form);
+            Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+
+            Window owner = this.getScene() != null ? this.getScene().getWindow() : null;
+            if (owner != null) dialog.initOwner(owner);
+
+            dialog.setTitle("Criar Evento");
+            dialog.setScene(dialogScene);
+            dialog.setResizable(false);
+            dialog.showAndWait();
+        });
+
         ContentList content = new ContentList();
 
         ObservableList<Evento> eventos = FXCollections.observableArrayList();
