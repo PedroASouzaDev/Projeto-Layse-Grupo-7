@@ -1,9 +1,8 @@
     package com.auroraapp.view.pages;
 
     import com.auroraapp.model.Categoria;
-    import com.auroraapp.model.Evento;    import com.auroraapp.model.Participante;
-import com.auroraapp.model.Usuario;
-import com.auroraapp.view.Router;
+    import com.auroraapp.model.Evento;    
+    import com.auroraapp.view.Router;
     import com.auroraapp.view.components.ContentList;
     import com.auroraapp.view.components.FilterSidebar;
     import com.auroraapp.view.components.HeaderBar;
@@ -28,9 +27,6 @@ import com.auroraapp.view.Router;
     import javafx.stage.Modality;
     import javafx.stage.Stage;
     import javafx.stage.Window;
-
-    import java.time.LocalDate;
-    import java.util.LinkedList;
 
     public class HomeView extends BorderPane {
         public HomeView(Router router) {
