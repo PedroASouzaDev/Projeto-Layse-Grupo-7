@@ -1,17 +1,23 @@
 package com.auroraapp.model;
 
 import lombok.*;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Relatorio {
-
+    @Id
+    private Evento id;
     private Evento evento;
 
 // Método para exibir as informações do relatório no console
