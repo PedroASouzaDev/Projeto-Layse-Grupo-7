@@ -4,7 +4,10 @@ import java.util.LinkedList;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
@@ -31,12 +34,21 @@ public class Evento {
     private LocalDate dataFim;
     private Double valorIngresso;
 
-    @ManyToMany(mappedBy = "evento")
+    @ManyToMany
+    @JoinTable(name = "evento_participante", 
+    joinColumns = @JoinColumn(name = "evento_id"), 
+    inverseJoinColumns = @JoinColumn(name = "participante_id"))
     private LinkedList<Usuario> participantes;
 
-    @ManyToMany(mappedBy = "evento")
+    @ManyToMany
+    @JoinTable(name = "evento_organizador", 
+    joinColumns = @JoinColumn(name = "evento_id"), 
+    inverseJoinColumns = @JoinColumn(name = "organizador_id"))
     private LinkedList<Organizador> organizadores;
 
-    @ManyToMany(mappedBy = "evento")
+    @ManyToMany
+    @JoinTable(name = "evento_categoria", 
+    joinColumns = @JoinColumn(name = "evento_id"), 
+    inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private LinkedList<Categoria> categorias;
 }
