@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
@@ -40,15 +41,20 @@ public class HomeView extends BorderPane {
         FilterSidebar sidebar = new FilterSidebar();
         setLeft(sidebar);
 
-        // Conteudo Central (Pesquisa e Lista)
+        // Conteudo Central ((Pesquisa + botao) e Lista)
         VBox center = new VBox();
         center.setBackground(new Background(
             new BackgroundFill(Color.web("#e2e8f0"), CornerRadii.EMPTY, Insets.EMPTY)
         ));
-        center.setPadding(new Insets(14));
+        center.setPadding(new Insets(14, 14, 0, 14));
         center.setSpacing(8);
 
+        HBox tableHeader = new HBox();
         SearchHeader search = new SearchHeader();
+
+        // make search grow to push the button to the right (like flexbox space-between)
+        tableHeader.setAlignment(Pos.CENTER_LEFT);
+        HBox.setHgrow(search, Priority.ALWAYS);
 
         Button criarEventobotao = new Button("Criar Evento");
         criarEventobotao.setStyle(
@@ -88,6 +94,9 @@ public class HomeView extends BorderPane {
             dialog.setResizable(false);
             dialog.showAndWait();
         });
+
+        tableHeader.getChildren().addAll(search, criarEventobotao);
+        tableHeader.alignmentProperty().set(Pos.CENTER_RIGHT);
 
         ContentList content = new ContentList();
 
@@ -130,6 +139,49 @@ public class HomeView extends BorderPane {
             categoras
         ));
 
+        eventos.add(new Evento(
+            3,
+            "Workshop de Fotografia",
+            LocalDate.of(2026, 1, 15),
+            LocalDate.of(2026, 1, 16),
+            80.0,
+            new LinkedList<>(),
+            new LinkedList<>(),
+            categoras
+        ));
+
+        eventos.add(new Evento(
+            3,
+            "Workshop de Fotografia",
+            LocalDate.of(2026, 1, 15),
+            LocalDate.of(2026, 1, 16),
+            80.0,
+            new LinkedList<>(),
+            new LinkedList<>(),
+            categoras
+        ));
+
+        eventos.add(new Evento(
+            3,
+            "Workshop de Fotografia",
+            LocalDate.of(2026, 1, 15),
+            LocalDate.of(2026, 1, 16),
+            80.0,
+            new LinkedList<>(),
+            new LinkedList<>(),
+            categoras
+        ));
+
+        eventos.add(new Evento(
+            3,
+            "Workshop de Fotografia",
+            LocalDate.of(2026, 1, 15),
+            LocalDate.of(2026, 1, 16),
+            80.0,
+            new LinkedList<>(),
+            new LinkedList<>(),
+            categoras
+        ));
         ObservableList<String> categorias = FXCollections.observableArrayList();
 
         // Categorias de exemplo (Futura integração com a API)
@@ -179,7 +231,7 @@ public class HomeView extends BorderPane {
         sidebar.getSelectedCategoryNames().addListener((javafx.collections.ListChangeListener<String>) c -> updatePredicate.run());
 
         VBox.setVgrow(content, Priority.ALWAYS);
-        center.getChildren().addAll(search, criarEventobotao, content);
+        center.getChildren().addAll(tableHeader, content);
 
         HBox centerWrapper = new HBox(center);
         centerWrapper.setStyle("-fx-padding: 18;");

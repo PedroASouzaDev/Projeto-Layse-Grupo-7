@@ -9,8 +9,8 @@ public class SearchHeader extends HBox {
     private final TextField searchField = new TextField();
 
     public SearchHeader() {
-        setPadding(new Insets(18, 20, 18, 20));
-        setAlignment(Pos.CENTER);
+        setPadding(new Insets(18, 0, 18, 0));
+        setAlignment(Pos.CENTER_LEFT);
         setStyle(
             "-fx-background-color: transparent;"
         );

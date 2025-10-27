@@ -11,7 +11,7 @@ public class ContentList extends VBox {
     private final VBox list = new VBox(12); // agora campo, para atualizações dinâmicas
 
     public ContentList() {
-        setPadding(new Insets(12, 8, 8, 8));
+        setPadding(new Insets(12, 8, 0, 8));
         setSpacing(12);
 
         // container with light gray background like mockup
