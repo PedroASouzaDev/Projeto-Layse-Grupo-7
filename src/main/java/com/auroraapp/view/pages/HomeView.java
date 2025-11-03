@@ -1,7 +1,7 @@
     package com.auroraapp.view.pages;
 
     import com.auroraapp.model.Categoria;
-    import com.auroraapp.model.Evento;    
+    import com.auroraapp.model.Evento;
     import com.auroraapp.view.Router;
     import com.auroraapp.view.components.ContentList;
     import com.auroraapp.view.components.FilterSidebar;
