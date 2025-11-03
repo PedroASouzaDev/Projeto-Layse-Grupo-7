@@ -24,8 +24,8 @@ public class EventoController {
     private final EventoService eventoService;
 
     @GetMapping("/all")
-    public List<Evento> getAllEventos() {
-        System.out.println("Fetching all eventos: 200 OK");
+    public List<Evento> getAll() {
+        System.out.println("Fetching all eventos");
         return eventoService.buscarTodos();
     }
 
