@@ -1,6 +1,10 @@
     package com.auroraapp.view.pages;
 
-    import com.auroraapp.model.Categoria;
+    import java.sql.Date;
+import java.time.LocalDate;
+import java.util.LinkedList;
+
+import com.auroraapp.model.Categoria;
     import com.auroraapp.model.Evento;    
     import com.auroraapp.view.Router;
     import com.auroraapp.view.components.ContentList;
@@ -99,6 +103,15 @@
 
             ObservableList<Evento> eventos = FXCollections.observableArrayList();
             // Eventos de exemplo (Futura integração com a API)
+            eventos.add(Evento.builder()
+                .nome("Show de Rock")
+                .valorIngresso(50.0)
+                .participantes(new LinkedList<>())
+                .organizadores(new LinkedList<>())
+                .categorias(new LinkedList<>())
+                .dataFim(LocalDate.now())
+                .dataInicio(LocalDate.now().plusDays(1))
+                .build());
             
             ObservableList<String> categorias = FXCollections.observableArrayList();
             // Categorias de exemplo (Futura integração com a API)
