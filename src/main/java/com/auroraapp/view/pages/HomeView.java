@@ -1,11 +1,7 @@
     package com.auroraapp.view.pages;
 
-    import java.sql.Date;
-import java.time.LocalDate;
-import java.util.LinkedList;
-
-import com.auroraapp.model.Categoria;
-    import com.auroraapp.model.Evento;    
+    import com.auroraapp.model.Categoria;
+    import com.auroraapp.model.Evento;
     import com.auroraapp.view.Router;
     import com.auroraapp.view.components.ContentList;
     import com.auroraapp.view.components.FilterSidebar;

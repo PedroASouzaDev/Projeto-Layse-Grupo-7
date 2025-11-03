@@ -1,6 +1,6 @@
 package com.auroraapp.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,12 @@ public class EventoService {
         eventoRepository.deleteById(id);
     }
 
-    public Optional<Evento> buscarPorId(Long id) {
-        return eventoRepository.findById(id);
+    public Evento buscarPorId(Long id) {
+        return eventoRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Evento não encontrado com id: " + id));
+    }
+
+    public List<Evento> buscarTodos() {
+        return eventoRepository.findAll();
     }
 }

@@ -1,6 +1,6 @@
 package com.auroraapp.model;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -37,17 +37,17 @@ public class Evento {
     @JoinTable(name = "evento_participante", 
     joinColumns = @JoinColumn(name = "evento_id"), 
     inverseJoinColumns = @JoinColumn(name = "participante_id"))
-    private LinkedList<Usuario> participantes;
+    private List<Usuario> participantes;
 
     @ManyToMany
     @JoinTable(name = "evento_organizador", 
     joinColumns = @JoinColumn(name = "evento_id"), 
     inverseJoinColumns = @JoinColumn(name = "organizador_id"))
-    private LinkedList<Organizador> organizadores;
+    private List<Organizador> organizadores;
 
     @ManyToMany
     @JoinTable(name = "evento_categoria", 
     joinColumns = @JoinColumn(name = "evento_id"), 
     inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-    private LinkedList<Categoria> categorias;
+    private List<Categoria> categorias;
 }
