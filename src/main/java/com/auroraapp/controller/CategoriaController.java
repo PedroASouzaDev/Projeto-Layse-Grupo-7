@@ -12,7 +12,7 @@ import com.auroraapp.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/categoria")
+@RequestMapping("/categoria")
 @RequiredArgsConstructor
 public class CategoriaController {
     private final CategoriaService categoriaService;

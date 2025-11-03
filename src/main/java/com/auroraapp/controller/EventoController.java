@@ -1,7 +1,6 @@
 package com.auroraapp.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auroraapp.model.Evento;
-import com.auroraapp.repository.EventoRepository;
 import com.auroraapp.service.EventoService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,12 +23,12 @@ public class EventoController {
 
     @GetMapping("/all")
     public List<Evento> getAll() {
-        System.out.println("Fetching all eventos");
+        System.out.println("Fetching all eventos - 200 OK");
         return eventoService.buscarTodos();
     }
 
     @GetMapping("/{id}")
-    public Optional<Evento> getEventoById(@PathVariable Long id) {
+    public Evento getEventoById(@PathVariable Long id) {
         System.out.println("Fetching evento with ID: " + id + " - 200 OK");
         return eventoService.buscarPorId(id);
     }

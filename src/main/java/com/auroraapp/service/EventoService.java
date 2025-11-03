@@ -28,7 +28,6 @@ public class EventoService {
     }
 
     public List<Evento> buscarTodos() {
-        System.out.println(eventoRepository.findAll());
         return eventoRepository.findAll();
     }
 }
