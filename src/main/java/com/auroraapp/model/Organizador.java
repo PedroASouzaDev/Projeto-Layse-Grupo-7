@@ -1,6 +1,8 @@
 package com.auroraapp.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -12,5 +14,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @DiscriminatorValue("ORG")
 public class Organizador extends Usuario {
-    private LinkedList<Evento> eventosOrganizados;
+    private List<Evento> eventosOrganizados;
 }

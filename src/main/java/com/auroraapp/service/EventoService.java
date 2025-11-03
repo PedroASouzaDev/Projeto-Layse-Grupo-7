@@ -1,5 +1,6 @@
 package com.auroraapp.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -24,5 +25,9 @@ public class EventoService {
 
     public Optional<Evento> buscarPorId(Long id) {
         return eventoRepository.findById(id);
+    }
+
+    public List<Evento> buscarTodos() {
+        return eventoRepository.findAll();
     }
 }

@@ -1,6 +1,8 @@
 package com.auroraapp.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -14,5 +16,5 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorValue("PAR")
 public class Participante extends Usuario {
     @ManyToMany(mappedBy = "participantes")
-    private LinkedList<Evento> eventosPartcipados;
+    private List<Evento> eventosPartcipados;
 }
