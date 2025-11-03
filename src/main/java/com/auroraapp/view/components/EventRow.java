@@ -91,5 +91,17 @@ public class EventRow extends HBox {
                 System.err.println(" Erro ao gerar relatório: " + ex.getMessage());
             }
         });
+
+        // --- Clique na row para abrir detalhes ---
+        setOnMouseClicked(e -> {
+            if (e.getTarget() instanceof Button) return; // Evita conflito com o botão
+            javafx.stage.Stage detalheStage = new javafx.stage.Stage();
+            EventoDetail detalhe = new EventoDetail(evento); // Cria a view de detalhe
+            javafx.scene.Parent root = detalhe.getView();
+            javafx.scene.Scene detalheScene = new javafx.scene.Scene(root, 600, 400); // define tamanho
+            detalheStage.setScene(detalheScene);
+            detalheStage.setTitle("Detalhes do Evento - " + evento.getNome());
+            detalheStage.show();
+        });
     }
 }
