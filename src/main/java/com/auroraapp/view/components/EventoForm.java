@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import javafx.stage.Window;
 
 public class EventoForm extends VBox {
 
@@ -16,7 +18,6 @@ public class EventoForm extends VBox {
         this.setPadding(new Insets(20));
         this.setAlignment(Pos.CENTER);
 
-
         Label titulo = new Label("Criar Evento");
         titulo.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
@@ -28,10 +29,41 @@ public class EventoForm extends VBox {
         salvar.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-weight: bold;");
         salvar.setOnMouseEntered(e -> salvar.setStyle("-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-weight: bold;"));
         salvar.setOnMouseExited(e -> salvar.setStyle("-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-weight: bold;"));
-
         salvar.setOnAction(e -> validarECriarEvento());
 
-        this.getChildren().addAll(titulo, nomeEvento, dataEvento, mensagemErro, salvar);
+        Button btnAbrir = new Button("Selecionar categorias");
+        Popup popup = new Popup();
+        VBox popupContent = new VBox(10);
+        popupContent.setStyle("""
+            -fx-background-color: white;
+            -fx-border-color: gray;
+            -fx-padding: 10;
+            -fx-background-radius: 6;
+            -fx-border-radius: 6;
+            -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 6, 0, 0, 1);
+        """);
+
+        CheckBox tech = new CheckBox("Tecnologia");
+        CheckBox saude = new CheckBox("Saúde");
+        CheckBox educacao = new CheckBox("Educação");
+        CheckBox entretenimento = new CheckBox("Entretenimento");
+
+        popupContent.getChildren().addAll(tech, saude, educacao, entretenimento);
+        popup.getContent().add(popupContent);
+
+        btnAbrir.setOnAction(e -> {
+            if (popup.isShowing()) {
+                popup.hide();
+            } else {
+                Window window = btnAbrir.getScene().getWindow();
+                var screenBounds = btnAbrir.localToScreen(btnAbrir.getBoundsInLocal());
+                popup.show(window, screenBounds.getMinX(), screenBounds.getMaxY());
+            }
+        });
+
+        popupContent.setOnMouseExited(e -> popup.hide());
+
+        this.getChildren().addAll(titulo, nomeEvento, dataEvento, btnAbrir, mensagemErro, salvar);
     }
 
     private void validarECriarEvento() {
