@@ -18,15 +18,17 @@ import java.util.stream.Collectors;
 public class EventoDetail {
 
     private final Evento evento;
-    private BorderPane root;
+    private final BorderPane root;
 
     public EventoDetail(Evento evento) {
         this.evento = evento;
+
         // Formato de data
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        // Fundo principal (mesma cor da tela anterior)
+
+        // Fundo principal
         root = new BorderPane();
-        root.setStyle("-fx-background-color: #e8edf5;"); // azul-claro suave
+        root.setStyle("-fx-background-color: #e8edf5;");
 
         // --- Cabeçalho com botão voltar ---
         HBox header = new HBox();
@@ -42,6 +44,11 @@ public class EventoDetail {
                 "-fx-font-weight: bold; " +
                 "-fx-padding: 6 14;"
         );
+        btnVoltar.setCursor(javafx.scene.Cursor.HAND);
+        btnVoltar.setOnAction(e -> {
+            Stage stage = (Stage) btnVoltar.getScene().getWindow();
+            stage.close();
+        });
 
         Label titulo = new Label("Detalhes do Evento");
         titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;");
@@ -51,7 +58,7 @@ public class EventoDetail {
 
         header.getChildren().addAll(btnVoltar, space, titulo);
 
-        // --- Cartão central com os dados ---
+        // --- Cartão central  ---
         VBox card = new VBox(10);
         card.setPadding(new Insets(20));
         card.setAlignment(Pos.TOP_LEFT);
@@ -85,7 +92,6 @@ public class EventoDetail {
 
         card.getChildren().addAll(nome, dataInicio, dataFim, valor, lblCategorias, lblOrganizadores, lblParticipantes);
 
-        // Centralizar o cartão
         VBox center = new VBox(card);
         center.setAlignment(Pos.CENTER);
         center.setPadding(new Insets(20));
@@ -97,14 +103,9 @@ public class EventoDetail {
     public void show() {
         Stage stage = new Stage();
         stage.setTitle("Detalhes do Evento");
-
         Scene scene = new Scene(root, 700, 400);
         stage.setScene(scene);
         stage.show();
-
-        // --- Ação do botão voltar ---
-        Button btnVoltar = (Button) ((HBox) root.getTop()).getChildren().get(0);
-        btnVoltar.setOnAction(e -> stage.close());
     }
 
     public javafx.scene.Parent getView() {
