@@ -25,6 +25,9 @@ import javafx.stage.Window;
 
 public class HomeView extends BorderPane {
 
+    private static final ObservableList<Evento> eventos = FXCollections.observableArrayList();
+    private static final EventoHttpHook eventoHttp = new EventoHttpHook(eventos);
+
     public HomeView(Router router) {
 
         HeaderBar header = new HeaderBar();
@@ -45,15 +48,11 @@ public class HomeView extends BorderPane {
         SearchHeader search = new SearchHeader();
         HBox.setHgrow(search, Priority.ALWAYS);
 
-        EventoHttpHook eventoHttp = new EventoHttpHook();
-
-        ObservableList<Evento> eventos = FXCollections.observableArrayList();
+        eventoHttp.fetchEventos();
 
         ContentList content = new ContentList();
         FilteredList<Evento> filtered = new FilteredList<>(eventos, e -> true);
         content.setEvents(filtered);
-
-        eventoHttp.fetchEventos(eventos);
 
         updateSidebarCategories(eventos, sidebar);
         eventos.addListener((javafx.collections.ListChangeListener<Evento>) change -> {
@@ -69,7 +68,7 @@ public class HomeView extends BorderPane {
                 "-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 24px; -fx-padding: 8px 32px; -fx-font-weight: bold;"));
 
         criarEventoBotao.setOnAction(evt -> {
-            EventoForm form = new EventoForm();
+            EventoForm form = new EventoForm(eventoHttp);
             Scene dialogScene = new Scene(form);
             Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);

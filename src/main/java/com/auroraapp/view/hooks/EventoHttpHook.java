@@ -3,7 +3,6 @@ package com.auroraapp.view.hooks;
 import com.auroraapp.model.Evento;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,72 +12,19 @@ import java.util.List;
 
 public class EventoHttpHook {
 
-    private static final String BASE_URL = "http://localhost:8080/evento/all";
+    private static final String BASE_URL = "http://localhost:8080/evento";
+    private ObservableList<Evento> observableEventos;
 
     private final HttpClient client;
 
-    public EventoHttpHook() {
+    public EventoHttpHook(ObservableList<Evento> observableEventos) {
         this.client = HttpClient.newHttpClient();
+        this.observableEventos = observableEventos;
     }
 
-    public void fetchEventos(ListView<String> listView) {
+    public void fetchEventos() {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL))
-                .GET()
-                .build();
-
-        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(responseBody -> {
-                    List<Evento> eventos = JsonUtils.parseEventos(responseBody);
-
-                    Platform.runLater(() -> {
-                        listView.getItems().clear();
-                        for (Evento e : eventos) {
-                            StringBuilder sb = new StringBuilder();
-                            sb.append(e.getNome())
-                              .append(" (")
-                              .append(e.getDataInicio())
-                              .append(" - ")
-                              .append(e.getDataFim())
-                              .append(") - R$")
-                              .append(e.getValorIngresso())
-                              .append("\n");
-
-                            if (e.getParticipantes() != null && !e.getParticipantes().isEmpty()) {
-                                sb.append("Participantes: ");
-                                e.getParticipantes().forEach(p -> sb.append(p.getNome()).append(", "));
-                                sb.setLength(sb.length() - 2);
-                                sb.append("\n");
-                            }
-
-                            if (e.getOrganizadores() != null && !e.getOrganizadores().isEmpty()) {
-                                sb.append("Organizadores: ");
-                                e.getOrganizadores().forEach(o -> sb.append(o.getNome()).append(", "));
-                                sb.setLength(sb.length() - 2);
-                                sb.append("\n");
-                            }
-
-                            if (e.getCategorias() != null && !e.getCategorias().isEmpty()) {
-                                sb.append("Categorias: ");
-                                e.getCategorias().forEach(c -> sb.append(c.getNome()).append(", "));
-                                sb.setLength(sb.length() - 2);
-                                sb.append("\n");
-                            }
-
-                            listView.getItems().add(sb.toString());
-                        }
-                    });
-                })
-                .exceptionally(ex -> {
-                    ex.printStackTrace();
-                    return null;
-                });
-    }
-
-    public void fetchEventos(ObservableList<Evento> observableEventos) {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL))
+                .uri(URI.create(BASE_URL+"/all"))
                 .GET()
                 .build();
 
@@ -91,6 +37,27 @@ public class EventoHttpHook {
                         observableEventos.clear();
                         observableEventos.addAll(eventos);
                     });
+                })
+                .exceptionally(ex -> {
+                    ex.printStackTrace();
+                    return null;
+                });
+    }
+
+    public void createEvento(Evento evento) {
+        String jsonBody = JsonUtils.toJson(evento);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URL))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBody))
+                .build();
+
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenAccept(responseBody -> {
+                    System.out.println("Evento created: " + responseBody);
+                    Platform.runLater(() -> fetchEventos());
                 })
                 .exceptionally(ex -> {
                     ex.printStackTrace();

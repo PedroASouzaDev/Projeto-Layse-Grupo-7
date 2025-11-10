@@ -17,4 +17,9 @@ public class CategoriaService {
     public  List<Categoria> buscarTodos() {
         return categoriaRepository.findAll();
     }
+
+    public Categoria getCategoriaById(Long id) {
+        return categoriaRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Categoria não encontrada com id: " + id));
+    }
 }
