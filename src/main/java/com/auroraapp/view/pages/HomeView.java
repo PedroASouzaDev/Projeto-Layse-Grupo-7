@@ -25,46 +25,41 @@ import javafx.stage.Window;
 
 public class HomeView extends BorderPane {
 
-    // 🔹 Lista observável de eventos
-    private final ObservableList<Evento> eventos = FXCollections.observableArrayList();
-
     public HomeView(Router router) {
 
-        // 🔹 Header da tela
         HeaderBar header = new HeaderBar();
         setTop(header);
 
-        // 🔹 Sidebar de filtros (categorias)
         FilterSidebar sidebar = new FilterSidebar();
         setLeft(sidebar);
 
-        // 🔹 Layout central (conteúdo principal)
         VBox center = new VBox();
         center.setBackground(new Background(
                 new BackgroundFill(Color.web("#e2e8f0"), CornerRadii.EMPTY, Insets.EMPTY)));
         center.setPadding(new Insets(14, 14, 0, 14));
         center.setSpacing(8);
 
-        // 🔹 Header da tabela (barra de busca + botão criar evento)
         HBox tableHeader = new HBox();
         tableHeader.setAlignment(Pos.CENTER_RIGHT);
 
-        // 🔹 Campo de busca
         SearchHeader search = new SearchHeader();
         HBox.setHgrow(search, Priority.ALWAYS);
 
-        // 🔹 Hook para buscar eventos no backend
         EventoHttpHook eventoHttp = new EventoHttpHook();
 
-        // 🔹 Lista de eventos filtrados (FilteredList) e ContentList
+        ObservableList<Evento> eventos = FXCollections.observableArrayList();
+
         ContentList content = new ContentList();
         FilteredList<Evento> filtered = new FilteredList<>(eventos, e -> true);
         content.setEvents(filtered);
 
-        // 🔹 Carregar eventos automaticamente ao abrir a tela
         eventoHttp.fetchEventos(eventos);
 
-        // 🔹 Botão criar evento
+        updateSidebarCategories(eventos, sidebar);
+        eventos.addListener((javafx.collections.ListChangeListener<Evento>) change -> {
+            updateSidebarCategories(eventos, sidebar);
+        });
+
         Button criarEventoBotao = new Button("Criar Evento");
         criarEventoBotao.setStyle(
                 "-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 24px; -fx-padding: 8px 32px; -fx-font-weight: bold;");
@@ -73,7 +68,6 @@ public class HomeView extends BorderPane {
         criarEventoBotao.setOnMouseExited(e -> criarEventoBotao.setStyle(
                 "-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-background-radius: 24px; -fx-padding: 8px 32px; -fx-font-weight: bold;"));
 
-        // 🔹 Abrir modal para criar novo evento
         criarEventoBotao.setOnAction(evt -> {
             EventoForm form = new EventoForm();
             Scene dialogScene = new Scene(form);
@@ -87,19 +81,15 @@ public class HomeView extends BorderPane {
             dialog.showAndWait();
         });
 
-        // 🔹 Adicionar campo de busca e botão criar evento ao header da tabela
         tableHeader.getChildren().addAll(search, criarEventoBotao);
 
-        // 🔹 Filtragem dinâmica por nome e categorias
         Runnable updatePredicate = () -> {
             final String q = search.getText() == null ? "" : search.getText().trim().toLowerCase();
             final ObservableList<String> selectedCats = sidebar.getSelectedCategoryNames();
 
             filtered.setPredicate(ev -> {
-                // 🔹 Filtro por nome do evento
                 boolean nameMatches = q.isEmpty() || (ev.getNome() != null && ev.getNome().toLowerCase().contains(q));
 
-                // 🔹 Filtro por categorias selecionadas
                 if (selectedCats == null || selectedCats.isEmpty() || selectedCats.contains("TODAS")) {
                     return nameMatches;
                 }
@@ -112,19 +102,39 @@ public class HomeView extends BorderPane {
             });
         };
 
-        // 🔹 Listeners para atualização da filtragem em tempo real
         search.textProperty().addListener((obs, o, n) -> updatePredicate.run());
         sidebar.getSelectedCategoryNames()
                 .addListener((javafx.collections.ListChangeListener<String>) c -> updatePredicate.run());
 
-        // 🔹 Configuração de crescimento e layout do conteúdo
         VBox.setVgrow(content, Priority.ALWAYS);
         center.getChildren().addAll(tableHeader, content);
 
-        // 🔹 Wrapper central e margens
         HBox centerWrapper = new HBox(center);
         centerWrapper.setStyle("-fx-padding: 18;");
         setCenter(centerWrapper);
         setMargin(centerWrapper, new Insets(0, 20, 0, 20));
+    }
+
+    private void updateSidebarCategories(ObservableList<Evento> eventos, FilterSidebar sidebar) {
+        ObservableList<String> categorias = FXCollections.observableArrayList();
+
+        for (Evento e : eventos) {
+            if (e.getCategorias() == null) continue;
+            for (Categoria c : e.getCategorias()) {
+                if (c == null || c.getNome() == null) continue;
+                if (!categorias.contains(c.getNome())) {
+                    categorias.add(c.getNome());
+                }
+            }
+        }
+
+        if (!categorias.contains("TODAS")) {
+            categorias.add(0, "TODAS");
+        } else {
+            categorias.remove("TODAS");
+            categorias.add(0, "TODAS");
+        }
+
+        sidebar.setCategoryNames(categorias);
     }
 }

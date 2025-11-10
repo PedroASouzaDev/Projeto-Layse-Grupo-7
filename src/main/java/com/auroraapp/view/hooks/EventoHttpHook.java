@@ -21,9 +21,6 @@ public class EventoHttpHook {
         this.client = HttpClient.newHttpClient();
     }
 
-    // -------------------------------
-    // 1️⃣ Método para ListView<String>
-    // -------------------------------
     public void fetchEventos(ListView<String> listView) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL))
@@ -79,9 +76,6 @@ public class EventoHttpHook {
                 });
     }
 
-    // -----------------------------------------
-    // 2️⃣ Método para ObservableList<Evento>
-    // -----------------------------------------
     public void fetchEventos(ObservableList<Evento> observableEventos) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL))
