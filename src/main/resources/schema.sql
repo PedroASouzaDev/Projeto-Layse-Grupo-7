@@ -47,6 +47,7 @@ CREATE TABLE feedbacks (
 	id BIGINT AUTO_INCREMENT PRIMARY KEY,
 	evento_id BIGINT NOT NULL,
 	participante_id BIGINT NOT NULL,
+	nota BIGINT NOT NULL,
 	FOREIGN KEY (evento_id) REFERENCES evento(id),
 	FOREIGN KEY (participante_id) REFERENCES usuario(id)
 );

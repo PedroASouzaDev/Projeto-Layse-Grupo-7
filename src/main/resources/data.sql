@@ -26,7 +26,7 @@ INSERT INTO evento_organizador (evento_id, organizador_id) VALUES (2, 4);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (1, 1);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (2, 2);
 
-INSERT INTO feedbacks (evento_id, participante_id) VALUES (1, 1);
-INSERT INTO feedbacks (evento_id, participante_id) VALUES (1, 3);
+INSERT INTO feedbacks (evento_id, participante_id, nota) VALUES (1, 1, 2);
+INSERT INTO feedbacks (evento_id, participante_id, nota) VALUES (1, 3, 5);
 
 -- 3) IDs agora são automáticos para evitar conflitos com AUTO_INCREMENT.
