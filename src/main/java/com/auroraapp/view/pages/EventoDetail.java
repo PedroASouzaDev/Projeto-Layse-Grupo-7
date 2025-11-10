@@ -4,13 +4,12 @@ import com.auroraapp.model.Evento;
 import com.auroraapp.model.Categoria;
 import com.auroraapp.model.Organizador;
 import com.auroraapp.model.Usuario;
+import com.auroraapp.view.Router;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class EventoDetail extends BorderPane {
 
     private final Evento evento;
 
-    public EventoDetail(Evento evento) {
+    public EventoDetail(Evento evento, Router router) {
         this.evento = evento;
 
         // Formato de data
@@ -44,8 +43,13 @@ public class EventoDetail extends BorderPane {
         );
         btnVoltar.setCursor(javafx.scene.Cursor.HAND);
         btnVoltar.setOnAction(e -> {
-            Stage stage = (Stage) btnVoltar.getScene().getWindow();
-            stage.close();
+            // Navigate back to home (or any route that should be the previous view)
+            try {
+                router.navigate("home");
+            } catch (Exception ex) {
+                // fallback: clear view
+                this.getChildren().clear();
+            }
         });
 
         Label titulo = new Label("Detalhes do Evento");
@@ -96,14 +100,6 @@ public class EventoDetail extends BorderPane {
 
         setTop(header);
         setCenter(center);
-    }
-
-    public void show() {
-        Stage stage = new Stage();
-        stage.setTitle("Detalhes do Evento");
-        Scene scene = new Scene(this, 700, 400);
-        stage.setScene(scene);
-        stage.show();
     }
 
     public javafx.scene.Parent getView() {

@@ -50,7 +50,7 @@ public class HomeView extends BorderPane {
 
         eventoHttp.fetchEventos();
 
-        ContentList content = new ContentList();
+    ContentList content = new ContentList(router);
         FilteredList<Evento> filtered = new FilteredList<>(eventos, e -> true);
         content.setEvents(filtered);
 

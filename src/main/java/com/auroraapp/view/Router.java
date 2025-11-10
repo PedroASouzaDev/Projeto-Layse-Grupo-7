@@ -30,6 +30,12 @@ public class Router {
         root.getChildren().setAll(node);
     }
 
+    // Navigate directly to a Node (useful for dynamic pages with parameters)
+    public void navigateTo(Node node) {
+        if (node == null) throw new IllegalArgumentException("Node cannot be null");
+        root.getChildren().setAll(node);
+    }
+
     public static Supplier<Node> fromFxml(String resourcePath) {
         return () -> {
             try {

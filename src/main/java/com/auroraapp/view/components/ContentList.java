@@ -1,6 +1,7 @@
 package com.auroraapp.view.components;
 
 import com.auroraapp.model.Evento;
+import com.auroraapp.view.Router;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -9,8 +10,10 @@ import javafx.scene.layout.VBox;
 
 public class ContentList extends VBox {
     private final VBox list = new VBox(12); // agora campo, para atualizações dinâmicas
+    private final Router router;
 
-    public ContentList() {
+    public ContentList(Router router) {
+        this.router = router;
         setPadding(new Insets(12, 8, 0, 8));
         setSpacing(12);
 
@@ -41,7 +44,7 @@ public class ContentList extends VBox {
     private void updateFrom(ObservableList<Evento> eventos) {
         list.getChildren().clear();
         for (Evento e : eventos) {
-            list.getChildren().add(new EventRow(e));
+            list.getChildren().add(new EventRow(e, router));
         }
     }
 }

@@ -3,6 +3,7 @@ package com.auroraapp.view.components;
 import com.auroraapp.model.Relatorio;
 import com.auroraapp.view.pages.EventoDetail;
 import com.auroraapp.model.Evento;
+import com.auroraapp.view.Router;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,7 +16,7 @@ import java.io.File;
 
 public class EventRow extends HBox {
 
-    public EventRow(Evento evento) {
+    public EventRow(Evento evento, Router router) {
         setPadding(new Insets(8));
         setSpacing(12);
         setStyle(
@@ -96,13 +97,9 @@ public class EventRow extends HBox {
         // --- Clique na row para abrir detalhes ---
         setOnMouseClicked(e -> {
             if (e.getTarget() instanceof Button) return; // Evita conflito com o botão
-            javafx.stage.Stage detalheStage = new javafx.stage.Stage();
-            EventoDetail detalhe = new EventoDetail(evento); // Cria a view de detalhe
-            javafx.scene.Parent root = detalhe.getView();
-            javafx.scene.Scene detalheScene = new javafx.scene.Scene(root, 600, 400); // define tamanho
-            detalheStage.setScene(detalheScene);
-            detalheStage.setTitle("Detalhes do Evento - " + evento.getNome());
-            detalheStage.show();
+            // Navigate to the event detail page inside the main router
+            EventoDetail detalhe = new EventoDetail(evento, router);
+            router.navigateTo(detalhe.getView());
         });
     }
 }
