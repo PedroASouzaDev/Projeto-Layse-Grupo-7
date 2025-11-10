@@ -1,4 +1,4 @@
-package com.auroraapp.view.components;
+package com.auroraapp.view.pages;
 
 import com.auroraapp.model.Evento;
 import com.auroraapp.model.Categoria;
@@ -15,10 +15,9 @@ import javafx.stage.Stage;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
-public class EventoDetail {
+public class EventoDetail extends BorderPane {
 
     private final Evento evento;
-    private final BorderPane root;
 
     public EventoDetail(Evento evento) {
         this.evento = evento;
@@ -27,8 +26,7 @@ public class EventoDetail {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         // Fundo principal
-        root = new BorderPane();
-        root.setStyle("-fx-background-color: #e8edf5;");
+        setStyle("-fx-background-color: #e8edf5;");
 
         // --- Cabeçalho com botão voltar ---
         HBox header = new HBox();
@@ -96,19 +94,19 @@ public class EventoDetail {
         center.setAlignment(Pos.CENTER);
         center.setPadding(new Insets(20));
 
-        root.setTop(header);
-        root.setCenter(center);
+        setTop(header);
+        setCenter(center);
     }
 
     public void show() {
         Stage stage = new Stage();
         stage.setTitle("Detalhes do Evento");
-        Scene scene = new Scene(root, 700, 400);
+        Scene scene = new Scene(this, 700, 400);
         stage.setScene(scene);
         stage.show();
     }
 
     public javafx.scene.Parent getView() {
-        return root;
+        return this;
     }
 }
