@@ -1,6 +1,7 @@
 package com.auroraapp.view.components;
 
 import com.auroraapp.model.Relatorio;
+import com.auroraapp.view.pages.EventoDetail;
 import com.auroraapp.model.Evento;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

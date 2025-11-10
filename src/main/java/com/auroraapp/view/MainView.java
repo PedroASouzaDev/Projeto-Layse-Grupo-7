@@ -1,5 +1,6 @@
 package com.auroraapp.view;
 
+import com.auroraapp.view.pages.EventoDetail;
 import com.auroraapp.view.pages.HomeView;
 
 import javafx.geometry.Insets;
