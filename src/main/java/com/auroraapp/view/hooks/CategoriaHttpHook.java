@@ -1,7 +1,6 @@
 package com.auroraapp.view.hooks;
 
 import com.auroraapp.model.Categoria;
-import com.auroraapp.model.Evento;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
