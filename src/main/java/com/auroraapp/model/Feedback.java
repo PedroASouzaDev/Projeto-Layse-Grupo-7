@@ -25,7 +25,8 @@ public class Feedback {
     private Long id;
     
     private int nota;
-
+    
+    private String comentario;
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
