@@ -16,7 +16,10 @@ public class ContentList extends VBox {
 
         // container with light gray background like mockup
         VBox container = new VBox(12);
-        container.setStyle("-fx-background-color: transparent; -fx-background-radius: 4;");
+        container.setStyle("""
+            -fx-background-radius: 4;
+            -fx-border-radius: 4;
+        """);
         container.setPrefHeight(480);
 
         // inicialmente vazio; use setEvents(...) para popular
