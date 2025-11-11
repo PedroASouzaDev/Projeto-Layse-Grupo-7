@@ -4,6 +4,8 @@
 INSERT INTO categorias (nome) VALUES ('Tecnologia');
 INSERT INTO categorias (nome) VALUES ('Música');
 INSERT INTO categorias (nome) VALUES ('Esportes');
+INSERT INTO categorias (nome) VALUES ('Workshop');
+INSERT INTO categorias (nome) VALUES ('Literatura');
 
 INSERT INTO usuario (nome, type) VALUES ('João Silva', 'PAR');
 INSERT INTO usuario (nome, type) VALUES ('Maria Oliveira', 'ORG');
@@ -44,10 +46,16 @@ INSERT INTO evento_organizador (evento_id, organizador_id) VALUES (6, 2);
 INSERT INTO evento_organizador (evento_id, organizador_id) VALUES (7, 4);
 
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (1, 1);
+INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (1, 2);
+INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (1, 3);
+INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (1, 4);
+INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (1, 5);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (2, 2);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (3, 2);
+INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (3, 4);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (4, 1);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (5, 1);
+INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (5, 3);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (6, 1);
 INSERT INTO evento_categoria (evento_id, categoria_id) VALUES (7, 2);
 
