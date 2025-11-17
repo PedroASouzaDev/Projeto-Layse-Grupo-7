@@ -69,11 +69,31 @@ INSERT INTO feedbacks (evento_id, participante_id, nota, comentario) VALUES (5, 
 INSERT INTO feedbacks (evento_id, participante_id, nota, comentario) VALUES (6, 2, 4, 'Maratona divertida, mas o percurso poderia ser mais desafiador.');
 INSERT INTO feedbacks (evento_id, participante_id, nota, comentario) VALUES (7, 3, 5, 'Filmes incríveis, uma experiência única!');
 
--- Exemplo de participantes presentes em eventos
+-- Exemplo de participantes presentes no evento 1 (Conferência Java Aurora)
 INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (1, 1);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (1, 2);
 INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (1, 3);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (1, 4);
+-- Exemplo de participantes presentes no evento 2 (Show de Rock Aurora)
 INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (2, 1);
 INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (2, 2);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (2, 3);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (2, 4);
+-- Exemplo de participantes presentes no evento 3 (Festival de Música Eletrônica)
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (3, 1);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (3, 2);
 INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (3, 3);
+-- Exemplo de participantes presentes no evento 4 (Campeonato de Futebol 2025)
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (4, 1);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (4, 4);
+-- Exemplo de participantes presentes no evento 5 (Workshop de Python Avançado)
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (5, 1);
+-- Exemplo de participantes presentes no evento 6 (Maratona de Corrida Aurora)
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (6, 2);
+-- Exemplo de participantes presentes no evento 7 (Exibição de Filmes Independentes)
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (7, 3);
+-- Adicionando todos os inscritos como presentes nos eventos 5, 6 e 7
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (5, 3);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (6, 1);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (7, 1);
 
--- 3) IDs agora são automáticos para evitar conflitos com AUTO_INCREMENT.
