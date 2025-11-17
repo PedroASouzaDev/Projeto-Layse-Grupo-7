@@ -56,6 +56,11 @@ public class Estatisticas extends BorderPane {
         NumberAxis eixoY5 = new NumberAxis();
         eixoY5.setLabel("Média de notas");
 
+        NumberAxis eixoX6 = new NumberAxis();
+        eixoX6.setLabel("Eventos");
+        NumberAxis eixoY6 = new NumberAxis();
+        eixoY6.setLabel("% Comparecimento");
+
         //Qtd. Participantes por evento
         LineChart<Number, Number> participanteEvento = new LineChart<>(eixoX1, eixoY1);
         participanteEvento.setTitle("Participantes por Evento");
@@ -81,6 +86,14 @@ public class Estatisticas extends BorderPane {
         medNotaEvento.setTitle("Média de notas por evento");
         XYChart.Series<Number, Number> series5 = new XYChart.Series<>();
 
+        //Taxa de Comparecimento e Cancelamento por evento
+        LineChart<Number, Number> comparecimentoEvento = new LineChart<>(eixoX6, eixoY6);
+        comparecimentoEvento.setTitle("Taxa de Comparecimento e Cancelamento por Evento");
+        XYChart.Series<Number, Number> series6 = new XYChart.Series<>();
+        series6.setName("Comparecimento (%)");
+        XYChart.Series<Number, Number> series7 = new XYChart.Series<>();
+        series7.setName("Cancelamento (%)");
+
         eventoHttp.fetchEventos();
 
         ObservableList<Feedback> feedbacks = FXCollections.observableArrayList();
@@ -92,12 +105,21 @@ public class Estatisticas extends BorderPane {
             series3.getData().clear();
             series4.getData().clear();
             series5.getData().clear();
+            series6.getData().clear();
+            series7.getData().clear();
             for(Evento evento : eventos) {
                 series1.getData().add(new XYChart.Data<>(evento.getId(), evento.getParticipantes().size()));
                 series2.getData().add(new XYChart.Data<>(evento.getParticipantes().size(), evento.getValorIngresso()));
                 series3.getData().add(new XYChart.Data<>(evento.getId(), evento.getOrganizadores().size()));
 
                 feedbackHttp.fetchFeedbacksByEventoId(evento.getId());
+                
+                int total = evento.getParticipantes().size();
+                int presentes = evento.getParticipantesPresentes() != null ? evento.getParticipantesPresentes().size() : 0;
+                double taxa = total == 0 ? 0 : ((double) presentes / total) * 100;
+                double taxaCancelamento = total == 0 ? 0 : (100 - taxa);
+                series6.getData().add(new XYChart.Data<>(evento.getId(), taxa));
+                series7.getData().add(new XYChart.Data<>(evento.getId(), taxaCancelamento));
             }
         }); 
 
@@ -134,10 +156,14 @@ public class Estatisticas extends BorderPane {
         medNotaEvento.getData().add(series5);
         medNotaEvento.setLegendVisible(false);
 
+        comparecimentoEvento.getData().add(series6);
+        comparecimentoEvento.setLegendVisible(false);
+        
         grid.add(participanteEvento, 0, 0);
         grid.add(participanteIngresso, 1, 0);
         grid.add(organizadorEvento, 2, 0);
         grid.add(feedbackEvento, 0, 1);
         grid.add(medNotaEvento, 1, 1);
+        grid.add(comparecimentoEvento, 2, 1);
     }
 }
