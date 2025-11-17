@@ -69,4 +69,11 @@ INSERT INTO feedbacks (evento_id, participante_id, nota, comentario) VALUES (5, 
 INSERT INTO feedbacks (evento_id, participante_id, nota, comentario) VALUES (6, 2, 4, 'Maratona divertida, mas o percurso poderia ser mais desafiador.');
 INSERT INTO feedbacks (evento_id, participante_id, nota, comentario) VALUES (7, 3, 5, 'Filmes incríveis, uma experiência única!');
 
+-- Exemplo de participantes presentes em eventos
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (1, 1);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (1, 3);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (2, 1);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (2, 2);
+INSERT INTO evento_participantes_presentes (evento_id, usuario_id) VALUES (3, 3);
+
 -- 3) IDs agora são automáticos para evitar conflitos com AUTO_INCREMENT.

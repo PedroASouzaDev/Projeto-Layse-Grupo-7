@@ -50,4 +50,10 @@ public class Evento {
     joinColumns = @JoinColumn(name = "evento_id"), 
     inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias;
+
+    @ManyToMany
+    @JoinTable(name = "evento_participantes_presentes", 
+    joinColumns = @JoinColumn(name = "evento_id"), 
+    inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    private List<Usuario> participantesPresentes;
 }

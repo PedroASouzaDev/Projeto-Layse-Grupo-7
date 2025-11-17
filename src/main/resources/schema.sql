@@ -52,3 +52,11 @@ CREATE TABLE feedbacks (
 	FOREIGN KEY (evento_id) REFERENCES evento(id),
 	FOREIGN KEY (participante_id) REFERENCES usuario(id)
 );
+
+CREATE TABLE evento_participantes_presentes (
+    evento_id BIGINT NOT NULL,
+    usuario_id BIGINT NOT NULL,
+    PRIMARY KEY (evento_id, usuario_id),
+    FOREIGN KEY (evento_id) REFERENCES evento(id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
