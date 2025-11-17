@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@DiscriminatorValue("ORG")
-public class Organizador extends Usuario {
+@DiscriminatorValue("PAR")
+public class Participante extends Usuario {
 
 }

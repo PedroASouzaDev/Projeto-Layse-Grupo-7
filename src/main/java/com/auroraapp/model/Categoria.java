@@ -1,11 +1,22 @@
 package com.auroraapp.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@RequiredArgsConstructor
+@Entity
+@Table(name = "categorias")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Categoria {
-    private final int id;
-    private final String nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
 }
