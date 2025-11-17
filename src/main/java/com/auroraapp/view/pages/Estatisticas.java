@@ -155,6 +155,7 @@ public class Estatisticas extends BorderPane {
         medNotaEvento.setLegendVisible(false);
 
         comparecimentoEvento.getData().add(series6);
+        medNotaEvento.setLegendVisible(false);
         
         grid.add(participanteEvento, 0, 0);
         grid.add(participanteIngresso, 1, 0);
