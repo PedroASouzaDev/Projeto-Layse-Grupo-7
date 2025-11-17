@@ -14,7 +14,7 @@ public class HeaderBar extends HBox {
     public HeaderBar(Router router) {
         setPadding(new Insets(12, 20, 12, 20));
         setStyle("-fx-background-color: #1e293b;");
-        setAlignment(Pos.CENTER_LEFT);
+        setAlignment(Pos.CENTER);
         setSpacing(30);
 
         Label home = criarBotao("Home", () -> router.navigate("home"));

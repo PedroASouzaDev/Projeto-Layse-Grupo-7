@@ -41,9 +41,9 @@ public class HomeView extends BorderPane {
         setLeft(sidebar);
 
         VBox center = new VBox();
-        center.setBackground(new Background(
-                new BackgroundFill(Color.web("#e2e8f0"), CornerRadii.EMPTY, Insets.EMPTY)));
-        center.setPadding(new Insets(14, 14, 0, 14));
+        center.setBackground(new Background(new BackgroundFill(Color.web("#e2e8f0"), CornerRadii.EMPTY, Insets.EMPTY)));
+        center.setFillWidth(true);
+        center.setPadding(new Insets(14, 20, 0, 20));
         center.setSpacing(8);
 
         HBox tableHeader = new HBox();
@@ -54,7 +54,7 @@ public class HomeView extends BorderPane {
 
         eventoHttp.fetchEventos();
 
-    ContentList content = new ContentList(router);
+        ContentList content = new ContentList(router);
         FilteredList<Evento> filtered = new FilteredList<>(eventos, e -> true);
         content.setEvents(filtered);
 
@@ -141,10 +141,7 @@ public class HomeView extends BorderPane {
         VBox.setVgrow(content, Priority.ALWAYS);
         center.getChildren().addAll(tableHeader, content);
 
-        HBox centerWrapper = new HBox(center);
-        centerWrapper.setStyle("-fx-padding: 18;");
-        setCenter(centerWrapper);
-        setMargin(centerWrapper, new Insets(0, 20, 0, 20));
+        setCenter(center);
     }
 
     private void updateSidebarCategories(ObservableList<Evento> eventos, FilterSidebar sidebar) {
