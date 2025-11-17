@@ -117,6 +117,8 @@ public class EventoForm extends VBox {
             mensagemErro.setText("A data de início do evento é obrigatória!");
         } else if (dataFim == null) {
             mensagemErro.setText("A data de término do evento é obrigatória!");
+        } else if (dataFim.isBefore(data)) {
+            mensagemErro.setText("A data de término não pode ser anterior à data de início!");
         } else {
             mensagemErro.setText("");
 
