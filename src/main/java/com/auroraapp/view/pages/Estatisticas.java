@@ -37,7 +37,7 @@ public class Estatisticas extends BorderPane {
         eixoY1.setLabel("Participantes");
 
         NumberAxis eixoX2 = new NumberAxis();
-        eixoY1.setLabel("Participantes");
+        eixoX2.setLabel("Participantes");
         NumberAxis eixoY2 = new NumberAxis();
         eixoY2.setLabel("Valor do Ingresso");
 
@@ -49,7 +49,7 @@ public class Estatisticas extends BorderPane {
         NumberAxis eixoX4 = new NumberAxis();
         eixoX4.setLabel("Eventos");
         NumberAxis eixoY4 = new NumberAxis();
-        eixoX4.setLabel("Feedbacks");    
+        eixoY4.setLabel("Feedbacks");    
         
         NumberAxis eixoX5 = new NumberAxis();
         eixoX5.setLabel("Eventos");
@@ -68,7 +68,7 @@ public class Estatisticas extends BorderPane {
 
         //Qtd. Participantes por valor do Ingresso
         LineChart<Number, Number> participanteIngresso = new LineChart<>(eixoX2, eixoY2);
-        participanteIngresso.setTitle("Participantes por Ingresso");
+        participanteIngresso.setTitle("Participantes por Valor");
         XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
 
         //Qtd. Organizadores por evento
@@ -83,7 +83,7 @@ public class Estatisticas extends BorderPane {
 
         //Média de notas por evento
         LineChart<Number, Number> medNotaEvento = new LineChart<>(eixoX5, eixoY5);
-        feedbackEvento.setTitle("Média de notas por evento");
+        medNotaEvento.setTitle("Média de notas por evento");
         XYChart.Series<Number, Number> series5 = new XYChart.Series<>();
 
         //Taxa de Comparecimento e Cancelamento por evento
@@ -140,12 +140,23 @@ public class Estatisticas extends BorderPane {
         });
 
         participanteEvento.getData().add(series1);
+        participanteEvento.setLegendVisible(false);
+
         participanteIngresso.getData().add(series2);
+        participanteIngresso.setLegendVisible(false);
+
         organizadorEvento.getData().add(series3);
+        organizadorEvento.setLegendVisible(false);
+
         feedbackEvento.getData().add(series4);
+        feedbackEvento.setLegendVisible(false);
+
         medNotaEvento.getData().add(series5);
+        medNotaEvento.setLegendVisible(false);
+
         comparecimentoEvento.getData().add(series6);
-        
+        comparecimentoEvento.setLegendVisible(false);
+
         grid.add(participanteEvento, 0, 0);
         grid.add(participanteIngresso, 1, 0);
         grid.add(organizadorEvento, 2, 0);

@@ -14,6 +14,7 @@ public class ContentList extends VBox {
 
     public ContentList(Router router) {
         this.router = router;
+        setMaxWidth(Double.MAX_VALUE);
         setPadding(new Insets(12, 8, 0, 8));
         setSpacing(12);
 
