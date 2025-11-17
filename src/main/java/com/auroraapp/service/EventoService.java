@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.auroraapp.model.Categoria;
 import com.auroraapp.model.Evento;
+import com.auroraapp.model.Usuario;
 import com.auroraapp.repository.EventoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -37,5 +38,29 @@ public class EventoService {
 
     public List<Evento> buscarTodos() {
         return eventoRepository.findAll();
+    }
+
+    public List<Usuario> listarParticipantesPresentes(Long eventoId) {
+        Evento evento = buscarPorId(eventoId);
+        return evento.getParticipantesPresentes();
+    }
+
+    public Evento adicionarParticipantePresente(Long eventoId, Usuario usuario) {
+        Evento evento = buscarPorId(eventoId);
+        List<Usuario> presentes = evento.getParticipantesPresentes();
+        if (!presentes.contains(usuario)) {
+            presentes.add(usuario);
+            evento.setParticipantesPresentes(presentes);
+            return eventoRepository.save(evento);
+        }
+        return evento;
+    }
+
+    public Evento removerParticipantePresente(Long eventoId, Usuario usuario) {
+        Evento evento = buscarPorId(eventoId);
+        List<Usuario> presentes = evento.getParticipantesPresentes();
+        presentes.remove(usuario);
+        evento.setParticipantesPresentes(presentes);
+        return eventoRepository.save(evento);
     }
 }
