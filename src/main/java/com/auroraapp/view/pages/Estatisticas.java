@@ -114,12 +114,10 @@ public class Estatisticas extends BorderPane {
 
                 feedbackHttp.fetchFeedbacksByEventoId(evento.getId());
                 
-                int total = evento.getParticipantes().size();
+                int total = evento.getParticipantes() != null ? evento.getParticipantes().size() : 0;
                 int presentes = evento.getParticipantesPresentes() != null ? evento.getParticipantesPresentes().size() : 0;
                 double taxa = total == 0 ? 0 : ((double) presentes / total) * 100;
-                double taxaCancelamento = total == 0 ? 0 : (100 - taxa);
                 series6.getData().add(new XYChart.Data<>(evento.getId(), taxa));
-                series7.getData().add(new XYChart.Data<>(evento.getId(), taxaCancelamento));
             }
         }); 
 
@@ -157,7 +155,6 @@ public class Estatisticas extends BorderPane {
         medNotaEvento.setLegendVisible(false);
 
         comparecimentoEvento.getData().add(series6);
-        comparecimentoEvento.setLegendVisible(false);
         
         grid.add(participanteEvento, 0, 0);
         grid.add(participanteIngresso, 1, 0);

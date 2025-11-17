@@ -77,6 +77,19 @@ public class JsonUtils {
             }
             evento.setParticipantes(participantes);
 
+            List<Usuario> participantesPresentes = new ArrayList<>();
+            JSONArray partPresArray = obj.optJSONArray("participantesPresentes");
+            if (partArray != null) {
+                for (int j = 0; j < partArray.length(); j++) {
+                    JSONObject u = partArray.getJSONObject(j);
+                    Usuario user = new Usuario();
+                    user.setId(u.getLong("id"));
+                    user.setNome(u.getString("nome"));
+                    participantesPresentes.add(user);
+                }
+            }
+            evento.setParticipantesPresentes(participantesPresentes);
+
             List<Organizador> organizadores = new ArrayList<>();
             JSONArray orgArray = obj.optJSONArray("organizadores");
             if (orgArray != null) {
