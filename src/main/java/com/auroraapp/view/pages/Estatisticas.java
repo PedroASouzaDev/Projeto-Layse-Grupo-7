@@ -12,9 +12,6 @@ import com.auroraapp.view.hooks.FeedbackHttpHook;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.Axis;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
@@ -26,7 +23,7 @@ public class Estatisticas extends BorderPane {
     private static final EventoHttpHook eventoHttp = new EventoHttpHook(eventos);
 
     public Estatisticas(Router router) {
-        HeaderBar header = new HeaderBar();
+        HeaderBar header = new HeaderBar(router);
         setTop(header);
 
         GridPane grid = new GridPane();

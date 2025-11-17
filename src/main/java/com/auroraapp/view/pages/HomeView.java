@@ -30,7 +30,7 @@ public class HomeView extends BorderPane {
 
     public HomeView(Router router) {
 
-        HeaderBar header = new HeaderBar();
+        HeaderBar header = new HeaderBar(router);
         setTop(header);
 
         FilterSidebar sidebar = new FilterSidebar();
