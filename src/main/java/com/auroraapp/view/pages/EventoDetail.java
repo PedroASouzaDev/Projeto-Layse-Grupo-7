@@ -1,20 +1,32 @@
 package com.auroraapp.view.pages;
 
 import com.auroraapp.model.Evento;
+import com.auroraapp.model.Feedback;
 import com.auroraapp.model.Categoria;
 import com.auroraapp.model.Organizador;
 import com.auroraapp.model.Usuario;
 import com.auroraapp.view.Router;
+import com.auroraapp.view.components.EventRow;
+import com.auroraapp.view.hooks.FeedbackHttpHook;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 public class EventoDetail extends BorderPane {
+    private final VBox list = new VBox(10);
+    private static final ObservableList<Feedback> feedbacks = FXCollections.observableArrayList();
+    private static final FeedbackHttpHook feedbackHttp = new FeedbackHttpHook(feedbacks);
 
     private final Evento evento;
 
@@ -52,13 +64,7 @@ public class EventoDetail extends BorderPane {
             }
         });
 
-        Label titulo = new Label("Detalhes do Evento");
-        titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;");
-
-        Region space = new Region();
-        HBox.setHgrow(space, Priority.ALWAYS);
-
-        header.getChildren().addAll(btnVoltar, space, titulo);
+        header.getChildren().addAll(btnVoltar);
 
         // --- Cartão central  ---
         VBox card = new VBox(10);
@@ -94,12 +100,55 @@ public class EventoDetail extends BorderPane {
 
         card.getChildren().addAll(nome, dataInicio, dataFim, valor, lblCategorias, lblOrganizadores, lblParticipantes);
 
-        VBox center = new VBox(card);
-        center.setAlignment(Pos.CENTER);
-        center.setPadding(new Insets(20));
+        Label titulo = new Label("Detalhes do Evento");
+        titulo.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;");
+
+        Label feedbackTitulo = new Label("Feedbacks");
+        feedbackTitulo.setStyle("-fx-font-weight: bold; -fx-font-size: 18px;");
+
+        VBox container = new VBox(20);
+        container.setBackground(new Background(new BackgroundFill(Color.web("#e2e8f0"), CornerRadii.EMPTY, Insets.EMPTY)));
+        container.setPadding(new Insets(20));
+        container.getChildren().addAll(titulo, card, feedbackTitulo, list);
+
+        ScrollPane sp = new ScrollPane(container);
+        sp.setFitToWidth(true);
+        sp.viewportBoundsProperty().addListener((obs, oldVal, newVal) -> {
+            container.setPrefHeight(newVal.getHeight());
+        });
+        feedbackHttp.fetchFeedbacksByEventoId(evento.getId());
 
         setTop(header);
-        setCenter(center);
+        setCenter(sp);
+        setFeedbacks(feedbacks);
+    }
+
+    public void setFeedbacks(ObservableList<Feedback> feedbacks) {
+        updateFrom(feedbacks);
+        feedbacks.addListener((ListChangeListener<Feedback>) change -> updateFrom(feedbacks));
+    }
+
+    private void updateFrom(ObservableList<Feedback> feedbacks) {
+        list.getChildren().clear();
+
+        for (Feedback f : feedbacks) {
+            list.getChildren().add(criarCardFeedback(f));
+        }
+    }
+
+    public VBox criarCardFeedback(Feedback feedback) {
+        VBox card = new VBox(10);
+        card.setPadding(new Insets(20));
+        card.setAlignment(Pos.TOP_LEFT);
+        card.setStyle(
+                "-fx-background-color: white; " +
+                "-fx-background-radius: 10; " +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 3);"
+        );
+        Label nota = new Label("Nota: " + feedback.getNota());
+        Label comentario = new Label("Comentário: " + feedback.getComentario());
+        card.getChildren().addAll(nota, comentario);
+        return card;
     }
 
     public javafx.scene.Parent getView() {
