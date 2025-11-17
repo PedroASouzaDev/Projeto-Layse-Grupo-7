@@ -1,8 +1,12 @@
 package com.auroraapp.view.pages;
 
+import java.io.File;
+
 import com.auroraapp.model.Categoria;
 import com.auroraapp.model.Evento;
+import com.auroraapp.model.Relatorio;
 import com.auroraapp.view.Router;
+import com.auroraapp.model.RelatoriosCustom;
 import com.auroraapp.view.components.ContentList;
 import com.auroraapp.view.components.FilterSidebar;
 import com.auroraapp.view.components.HeaderBar;
@@ -80,7 +84,36 @@ public class HomeView extends BorderPane {
             dialog.showAndWait();
         });
 
-        tableHeader.getChildren().addAll(search, criarEventoBotao);
+
+
+        Button gerarRelatorioCustom = new Button("Gerar Relatório");
+        gerarRelatorioCustom.setStyle(
+            "-fx-background-color: #10b981; -fx-text-fill: white; -fx-background-radius: 24px; -fx-padding: 8px 32px; -fx-font-weight: bold;");
+        gerarRelatorioCustom.setOnMouseEntered(e -> gerarRelatorioCustom.setStyle(
+            "-fx-background-color: #059669; -fx-text-fill: white; -fx-background-radius: 24px; -fx-padding: 8px 32px; -fx-font-weight: bold;"));
+        gerarRelatorioCustom.setOnMouseExited(e -> gerarRelatorioCustom.setStyle(
+            "-fx-background-color: #10b981; -fx-text-fill: white; -fx-background-radius: 24px; -fx-padding: 8px 32px; -fx-font-weight: bold;"));
+
+        gerarRelatorioCustom.setOnAction(evt -> {
+            try {
+                File pasta = new File("relatorios");
+                if (!pasta.exists()) pasta.mkdirs();
+
+                String caminho = "relatorios/relatorio_geral.csv";
+
+                RelatoriosCustom relatorio = new RelatoriosCustom();
+                relatorio.setEventosFiltrados(filtered);
+                relatorio.gerarCSV(caminho);
+
+                System.out.println(" Relatório CSV gerado: " + caminho);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.err.println(" Erro ao gerar relatório: " + ex.getMessage());
+            }
+        });
+
+        tableHeader.getChildren().addAll(search, gerarRelatorioCustom,criarEventoBotao);
 
         Runnable updatePredicate = () -> {
             final String q = search.getText() == null ? "" : search.getText().trim().toLowerCase();
