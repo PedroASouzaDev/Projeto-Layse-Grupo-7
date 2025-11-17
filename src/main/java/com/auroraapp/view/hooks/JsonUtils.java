@@ -9,11 +9,47 @@ import org.json.JSONObject;
 
 import com.auroraapp.model.Categoria;
 import com.auroraapp.model.Evento;
+import com.auroraapp.model.Feedback;
 import com.auroraapp.model.Organizador;
+import com.auroraapp.model.Participante;
 import com.auroraapp.model.Usuario;
 
 public class JsonUtils {
 
+
+    public static List<Feedback> parseFeedbacks(String jsonString) {
+        List<Feedback> feedbacks = new ArrayList<>();
+
+        JSONArray jsonArray = new JSONArray(jsonString);
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject obj = jsonArray.getJSONObject(i);
+
+            Feedback feedback = new Feedback();
+            feedback.setId(obj.getLong("id"));
+            feedback.setNota(obj.getInt("nota"));
+            feedback.setComentario(obj.optString("comentario", ""));
+
+            JSONObject ev = obj.optJSONObject("evento");
+            if (ev != null) {
+                Evento evento = new Evento();
+                evento.setId(ev.getLong("id"));
+                evento.setNome(ev.optString("nome", null));
+                feedback.setEvento(evento);
+            }
+
+            JSONObject part = obj.optJSONObject("participante");
+            if (part != null) {
+                Participante p = new Participante();
+                p.setId(part.getLong("id"));
+                p.setNome(part.optString("nome", null));
+                feedback.setParticipante(p);
+            }
+
+            feedbacks.add(feedback);
+        }
+
+        return feedbacks;
+    }
     public static List<Evento> parseEventos(String jsonString) {
         List<Evento> eventos = new ArrayList<>();
 
