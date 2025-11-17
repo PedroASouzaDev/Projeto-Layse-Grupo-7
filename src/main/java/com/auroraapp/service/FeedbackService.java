@@ -28,6 +28,10 @@ public class FeedbackService {
         return feedbackRepository.save(feedback);
     }
 
+    public List<Feedback> buscarTodosPorEventoId(Long id) {
+        return feedbackRepository.findByEventoId(id);
+    }
+
     public void deletar(Long id) {
         feedbackRepository.deleteById(id);
     }

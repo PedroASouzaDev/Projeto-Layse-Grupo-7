@@ -27,10 +27,15 @@ public class FeedbackController {
         return feedbackService.buscarTodos();
     }
 
+    @GetMapping("/all/{id}") 
+    public List<Feedback> getAllByEventId(@PathVariable Long id) {
+        return feedbackService.buscarTodosPorEventoId(id); 
+    }
+
     @GetMapping("/{id}")
     public Feedback getFeedbackById(@PathVariable Long id) {
         System.out.println("Fetching feedback with ID: " + id + " - 200 OK");
-        return feedbackService.buscarPorId(id);
+        return feedbackService.buscarPorId(id); 
     }
 
     @PostMapping
