@@ -1,4 +1,4 @@
-package com;
+package com.auroraapp;
 
 import javafx.application.Application;
 import javafx.application.Platform;
